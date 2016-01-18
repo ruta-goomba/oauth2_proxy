@@ -20,21 +20,21 @@ func NewGitHubProvider(p *ProviderData) *GitHubProvider {
 	if p.LoginURL == nil || p.LoginURL.String() == "" {
 		p.LoginURL = &url.URL{
 			Scheme: "https",
-			Host:   "github.com",
+			Host:   "github.dev.global.tesco.org",
 			Path:   "/login/oauth/authorize",
 		}
 	}
 	if p.RedeemURL == nil || p.RedeemURL.String() == "" {
 		p.RedeemURL = &url.URL{
 			Scheme: "https",
-			Host:   "github.com",
+			Host:   "github.dev.global.tesco.org",
 			Path:   "/login/oauth/access_token",
 		}
 	}
 	if p.ValidateURL == nil || p.ValidateURL.String() == "" {
 		p.ValidateURL = &url.URL{
 			Scheme: "https",
-			Host:   "api.github.com",
+			Host:   "api.github.dev.global.tesco.org",
 			Path:   "/user/emails",
 		}
 	}
@@ -52,7 +52,7 @@ func (p *GitHubProvider) SetOrgTeam(org, team string) {
 }
 
 func (p *GitHubProvider) hasOrg(accessToken string) (bool, error) {
-	// https://developer.github.com/v3/orgs/#list-your-organizations
+	// https://developer.github.dev.global.tesco.org/v3/orgs/#list-your-organizations
 
 	var orgs []struct {
 		Login string `json:"login"`
@@ -63,7 +63,7 @@ func (p *GitHubProvider) hasOrg(accessToken string) (bool, error) {
 		"limit":        {"100"},
 	}
 
-	endpoint := "https://api.github.com/user/orgs?" + params.Encode()
+	endpoint := "https://api.github.dev.global.tesco.org/user/orgs?" + params.Encode()
 	req, _ := http.NewRequest("GET", endpoint, nil)
 	req.Header.Set("Accept", "application/vnd.github.v3+json")
 	resp, err := http.DefaultClient.Do(req)
@@ -98,7 +98,7 @@ func (p *GitHubProvider) hasOrg(accessToken string) (bool, error) {
 }
 
 func (p *GitHubProvider) hasOrgAndTeam(accessToken string) (bool, error) {
-	// https://developer.github.com/v3/orgs/teams/#list-user-teams
+	// https://developer.github.dev.global.tesco.org/v3/orgs/teams/#list-user-teams
 
 	var teams []struct {
 		Name string `json:"name"`
@@ -113,7 +113,7 @@ func (p *GitHubProvider) hasOrgAndTeam(accessToken string) (bool, error) {
 		"limit":        {"100"},
 	}
 
-	endpoint := "https://api.github.com/user/teams?" + params.Encode()
+	endpoint := "https://api.github.dev.global.tesco.org/user/teams?" + params.Encode()
 	req, _ := http.NewRequest("GET", endpoint, nil)
 	req.Header.Set("Accept", "application/vnd.github.v3+json")
 	resp, err := http.DefaultClient.Do(req)
@@ -183,7 +183,7 @@ func (p *GitHubProvider) GetEmailAddress(s *SessionState) (string, error) {
 	params := url.Values{
 		"access_token": {s.AccessToken},
 	}
-	endpoint := "https://api.github.com/user/emails?" + params.Encode()
+	endpoint := "https://api.github.dev.global.tesco.org/user/emails?" + params.Encode()
 	resp, err := http.DefaultClient.Get(endpoint)
 	if err != nil {
 		return "", err
