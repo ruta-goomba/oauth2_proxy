@@ -34,7 +34,7 @@ func NewGitHubProvider(p *ProviderData) *GitHubProvider {
 	if p.ValidateURL == nil || p.ValidateURL.String() == "" {
 		p.ValidateURL = &url.URL{
 			Scheme: "https",
-			Host:   "api.github.dev.global.tesco.org",
+			Host:   "github.dev.global.tesco.org/api/v3/",
 			Path:   "/user/emails",
 		}
 	}
@@ -63,7 +63,7 @@ func (p *GitHubProvider) hasOrg(accessToken string) (bool, error) {
 		"limit":        {"100"},
 	}
 
-	endpoint := "https://api.github.dev.global.tesco.org/user/orgs?" + params.Encode()
+	endpoint := "https://github.dev.global.tesco.org/api/v3/user/orgs?" + params.Encode()
 	req, _ := http.NewRequest("GET", endpoint, nil)
 	req.Header.Set("Accept", "application/vnd.github.v3+json")
 	resp, err := http.DefaultClient.Do(req)
@@ -113,7 +113,7 @@ func (p *GitHubProvider) hasOrgAndTeam(accessToken string) (bool, error) {
 		"limit":        {"100"},
 	}
 
-	endpoint := "https://api.github.dev.global.tesco.org/user/teams?" + params.Encode()
+	endpoint := "https://github.dev.global.tesco.org/api/v3/user/teams?" + params.Encode()
 	req, _ := http.NewRequest("GET", endpoint, nil)
 	req.Header.Set("Accept", "application/vnd.github.v3+json")
 	resp, err := http.DefaultClient.Do(req)
@@ -183,7 +183,7 @@ func (p *GitHubProvider) GetEmailAddress(s *SessionState) (string, error) {
 	params := url.Values{
 		"access_token": {s.AccessToken},
 	}
-	endpoint := "https://api.github.dev.global.tesco.org/user/emails?" + params.Encode()
+	endpoint := "https://github.dev.global.tesco.org/api/v3/user/emails?" + params.Encode()
 	resp, err := http.DefaultClient.Get(endpoint)
 	if err != nil {
 		return "", err
