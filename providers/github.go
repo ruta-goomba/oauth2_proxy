@@ -20,21 +20,21 @@ func NewGitHubProvider(p *ProviderData) *GitHubProvider {
 	if p.LoginURL == nil || p.LoginURL.String() == "" {
 		p.LoginURL = &url.URL{
 			Scheme: "https",
-			Host:   "github.dev.global.tesco.org",
+			Host:   "github.com",
 			Path:   "/login/oauth/authorize",
 		}
 	}
 	if p.RedeemURL == nil || p.RedeemURL.String() == "" {
 		p.RedeemURL = &url.URL{
 			Scheme: "https",
-			Host:   "github.dev.global.tesco.org",
+			Host:   "github.com",
 			Path:   "/login/oauth/access_token",
 		}
 	}
 	if p.ValidateURL == nil || p.ValidateURL.String() == "" {
 		p.ValidateURL = &url.URL{
 			Scheme: "https",
-			Host:   "github.dev.global.tesco.org/api/v3/",
+			Host:   "api.github.com",
 			Path:   "/user/emails",
 		}
 	}
